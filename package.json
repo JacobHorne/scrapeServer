@@ -1,0 +1,24 @@
+{
+ 
+  "name": "server",
+  "version": "0.0.1",
+  "description": "What am I about?",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.15.3",
+    "cheerio": "^0.22.0",
+    "request": "^2.81.0"
+  },
+  "engines": {
+    "node": "8.x"
+  },
+  "license": "MIT",
+  "keywords": [
+    "node",
+    "glitch",
+    "express"
+  ]
+}
