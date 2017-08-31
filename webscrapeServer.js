@@ -9,9 +9,9 @@ var path = require('path');
 var app = express();
 
 
-app.use('/', express.static(path.join(__dirname, 'public')))
+app.use('/', express.static(path.join(__dirname, 'dist')))
 
-//cors//////////////////////////////////////////////////////
+//cors////////////////////////////////////////////////////
 app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
@@ -19,7 +19,7 @@ app.use(function(req, res, next) {
 });
 
 app.get('/', function(req, res) {
-    res.sendFile(path.join(__dirname, 'index.html'));
+    res.sendFile(path.join(__dirname, '/dist/index.html'));
 });
 
 app.get('/scrape', function (req, res) {
@@ -28,7 +28,7 @@ app.get('/scrape', function (req, res) {
 	request(url, function(error, response, html) {
         if (!error){
             $ = cheerio.load(html);
-            res.send($(tag).text());
+            res.send($(tag).text(''));
         } else {
             res.send("Something when wrong");
         }
