@@ -9,8 +9,7 @@ var path = require('path');
 var app = express();
 
 
-var assetsPath = path.join(__dirname, '../static');
-app.use(express.static(assetsPath));
+app.use('/', express.static(path.join(__dirname, 'public')))
 
 //cors//////////////////////////////////////////////////////
 app.use(function(req, res, next) {
@@ -20,7 +19,7 @@ app.use(function(req, res, next) {
 });
 
 app.get('/', function(req, res) {
-    res.sendFile(path.join(__dirname + '/index.html'));
+    res.sendFile(path.join(__dirname, '/index.html'));
 });
 
 app.get('/scrape', function (req, res) {
