@@ -11,12 +11,12 @@ var app = express();
 
 app.use('/', express.static(path.join(__dirname, 'dist')))
 
-//cors////////////////////////////////////////////////////
-// app.use(function(req, res, next) {
-//     res.header("Access-Control-Allow-Origin", "*");
-//     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-//     next();
-// });
+
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+});
 
 app.get('/', function(req, res) {
     res.sendFile(path.join(__dirname, 'index.html'));
@@ -25,12 +25,18 @@ app.get('/', function(req, res) {
 app.get('/scrape', function (req, res) {
 	let url = req.query.url; //grab parameter
     let tag = req.query.tag; //grab second parameter
+    
 	request(url, function(error, response, html) {
+        
         if (!error){
             $ = cheerio.load(html);
-            res.send($(tag).text(''));
+            try {
+                res.send($(tag).text());
+            } catch(er) {
+                res.status(500).send(er.message);
+            }
         } else {
-            res.send("Something when wrong");
+            res.status(500).send(error);
         }
     });
 })
